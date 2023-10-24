@@ -4,20 +4,20 @@
 
 {% block body %}
 <h1 class="mb-5">Create Movie Rating</h1>
-<p class="mb-3">Create a movie rating below</p>
+<p class="mb-3" style="text-align: center;">Create a new movie rating below!</p>
 <!-- TODO: Feature 2 -->
 <form method="POST" action="{{ url_for('create_movie') }}">
     <div class="mb-3">
-        <label for="movie" class="form-label">movie</label>
-        <input type="text" class="form-control" id="movie" name="movie" placeholder="Tenet">
+        <label for="movie" class="form-label">Movie:</label>
+        <input type="text" class="form-control" id="movie" name="movie" placeholder="Movie Title">
     </div>
     <div class="mb-3">
         <label for="director" class="form-label">Director:</label>
-        <input type="text" class="form-control" id="director" name="director" placeholder="Christopher Nolan">
+        <input type="text" class="form-control" id="director" name="director" placeholder="Name of Director">
     </div>
     <div class="mb-3">
         <label for="rating" class="form-label">Rating (1-5):</label>
-        <input type="number" class="form-control" id="rating" name="rating" placeholder="5">
+        <input type="number" name="rating" id="rating" class="form-control" placeholder="Enter your rating 1-5" min="1" max="5">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
