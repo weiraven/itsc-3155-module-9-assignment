@@ -14,7 +14,7 @@
 	</thead>
 	<tbody>
 		{% for movie in movies %}
-		<tr>
+		<tr onclick="window.location='/movies/{{ movie.movie_id }}';" style="cursor: pointer;">
 			<td>{{ movie.movie_id }}</td>
 			<td>{{ movie.title }}</td>
 			<td>{{ movie.director }}</td>
