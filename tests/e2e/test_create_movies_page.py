@@ -20,7 +20,6 @@ def test_no_movies_in_view(test_app: FlaskClient) -> None:
 def test_movies_in_view(test_app: FlaskClient) -> None:
     movie_repository = get_movie_repository()
     movie_repository.clear_db()
-    response = test_app.get("/movies")
     test_insert_data(test_app)
 
     
@@ -41,3 +40,8 @@ def test_insert_data(test_app: FlaskClient) -> None:
     assert movies[0].title == 'Kung Fu Hustle'
     assert movies[0].director == 'Stephen Chow'
     assert movies[0].rating == 5
+
+def test_force_code(test_app: FlaskClient) -> None:
+    response = test_app.post('/movies', follow_redirects=True)
+
+    assert response.status_code == 400
