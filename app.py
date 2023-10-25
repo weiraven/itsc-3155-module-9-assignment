@@ -86,4 +86,6 @@ def update_movie(movie_id: int):
 @app.post("/movies/<int:movie_id>/delete")
 def delete_movie(movie_id: int):
     # TODO: Feature 6
-    pass
+    # Deletes the movie from the database by its id then returns to movie page
+    movie_repository.delete_movie(movie_id)
+    return redirect('/movies')
