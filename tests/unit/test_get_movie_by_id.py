@@ -1,19 +1,14 @@
 # TODO: Feature 4
-import pytest
-from flask.testing import FlaskClient
-from app import app, movie_repository
+from src.repositories.movie_repository import get_movie_repository
 
-@pytest.fixture()
-def test_app() -> FlaskClient:
-    return app.test_client()
+def test_get_movie_by_id():
+    movie = get_movie_repository()
+    movie.clear_db()
+    movie.create_movie('Everything Everywhere All At Once','Daniel Kwan', 5)
+    movies = list(movie.get_all_movies().values())
+    id = movie.get_movie_by_id(movies[0].movie_id)
 
-def test_get_single_movie_exists(test_app: FlaskClient) -> None:
-    movie_repository.create_movie('Kung Fu Hustle','Stephen Chow', 5) 
-    response = test_app.get('/movies/{movie.id}')
-    assert response.status_code == 200
-    assert b'Kung Fu Hustle' in response.data  # check if movie title is in the response
-
-def test_get_single_movie_not_found(test_app: FlaskClient) -> None:
-    response = test_app.get('/movies/999999')  # assuming 999999 does not exist in your repository
-    assert response.status_code == 302  # check if it's a redirect
-    assert '/movies' in response.location  # check if it redirects to the correct URL
+    assert movies[0].title == 'Everything Everywhere All At Once'
+    assert movies[0].director == 'Daniel Kwan'
+    assert movies[0].rating == 5
+    assert movies[0] == id
