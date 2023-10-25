@@ -24,3 +24,4 @@ def test_movies_in_view(test_app: FlaskClient) -> None:
     data = response.data.decode()
     assert "dookie</td>" in data
     assert response.status_code == 200
+    movie_repository.clear_db()
