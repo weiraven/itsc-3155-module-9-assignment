@@ -52,13 +52,36 @@ def get_single_movie(movie_id: int):
 
 @app.get("/movies/<int:movie_id>/edit")
 def get_edit_movies_page(movie_id: int):
-    return render_template("edit_movies_form.html")
+ # Retrieve the movie from the repository
+    movie = movie_repository.get_movie_by_id(movie_id)
+    
+    if movie is None:
+        # If the movie isn't found, redirect to the list all movies page
+        return redirect('/movies')
+    
+    return render_template("edit_movies_form.html", movie=movie)
 
-@app.post("/movies/<int:movie_id>")
+@app.post("/movies/<int:movie_id>/update")
 def update_movie(movie_id: int):
     # TODO: Feature 5
     # After updating the movie in the database, we redirect back to that single movie page
-    return redirect(f"/movies/{movie_id}")
+    
+    # Retrieve the movie from the repository
+    movie = movie_repository.get_movie_by_id(movie_id)
+    
+    if movie is None:
+        # If the movie isn't found, redirect to the list all movies page
+        return redirect('/movies')
+
+    # Update the movie details
+    movie.title = request.form['title']
+    movie.director = request.form['director']
+    movie.rating = int(request.form['rating'])
+
+    # Save the updated movie back to the repository
+    movie_repository.update_movie(movie_id, movie.title, movie.director, movie.rating)
+    
+    return redirect('/movies')
 
 @app.post("/movies/<int:movie_id>/delete")
 def delete_movie(movie_id: int):
