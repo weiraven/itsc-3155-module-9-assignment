@@ -3,6 +3,25 @@
 {% block title %}Movie Rating App | Edit Movie{% endblock %}
 
 {% block body %}
-<h1 class="mb-5"></h1>
 <!-- TODO: Feature 5 -->
+<h1 class="mb-5">Edit The Movie</h1>
+<form action="{{ url_for('update_movie', movie_id=movie.movie_id) }}" method="post">
+
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ movie.title }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="director" class="form-label">Director</label>
+        <input type="text" class="form-control" id="director" name="director" value="{{ movie.director }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <input type="number" class="form-control" id="rating" name="rating" value="{{ movie.rating }}" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
 {% endblock %}
