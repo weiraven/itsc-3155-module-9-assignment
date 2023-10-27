@@ -6,12 +6,19 @@
 <div container>
     <h1 class="mb-5">Search Movie Ratings</h1>
     <p class="mb-3">Search for a movie rating below:</p>
-    <form action="/movies/search" method="POST">
+    <form action="/movies/search" method="GET">
         <div class="mb-3">
             <label for="searchmovie" class="form-label">Movie Search</label>
             <input type="search" class="form-control" name="search" id="search">
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
+    {% if movie %}
+        <h3>{{movie.title}}</h3>
+        <h4>{{movie.director}}</h4>
+        <h4>{{movie.rating}}</h4>
+    {% else %}
+        <h2>No Movie Found!</h2>
+    {% endif %}
 </div>
 {% endblock %}
