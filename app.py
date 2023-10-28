@@ -36,8 +36,13 @@ def create_movie():
 
 @app.get("/movies/search")
 def search_movies():
-    # TODO: Feature 3
-    return render_template("search_movies.html", search_active=True)
+    title = request.args.get('search')
+    movie = movie_repository.get_movie_by_title(title)
+    if movie:
+        return render_template('search_movies.html', search_active=True, movie=movie)
+    else:
+        return render_template('search_movies.html', search_active=True, error="Movie Not Found")
+    
 
 @app.get("/movies/<int:movie_id>")
 def get_single_movie(movie_id: int):
@@ -89,3 +94,13 @@ def delete_movie(movie_id: int):
     # Deletes the movie from the database by its id then returns to movie page
     movie_repository.delete_movie(movie_id)
     return redirect('/movies')
+
+#<div container>
+#    {% if movie %}
+#        <h3>{{movie.title}}</h3>
+#        <h4>{{movie.director}}</h4>
+#        <h4>{{movie.rating}}</h4>
+#    {% else %}
+#        <h2>No Movie Found!</h2>
+#    {% endif %}
+#    </div>
