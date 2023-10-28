@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, request
 
 from src.repositories.movie_repository import get_movie_repository
 
@@ -94,3 +94,13 @@ def delete_movie(movie_id: int):
     # Deletes the movie from the database by its id then returns to movie page
     movie_repository.delete_movie(movie_id)
     return redirect('/movies')
+
+#<div container>
+#    {% if movie %}
+#        <h3>{{movie.title}}</h3>
+#        <h4>{{movie.director}}</h4>
+#        <h4>{{movie.rating}}</h4>
+#    {% else %}
+#        <h2>No Movie Found!</h2>
+#    {% endif %}
+#    </div>
